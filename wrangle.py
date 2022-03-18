@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from env import get_db_url
 from pydataset import data
+from sklearn.model_selection import train_test_split
 import os
 
 def show_codeup_dbs():
@@ -59,4 +60,6 @@ def wrangle_zillow():
     prop_vals_clean.tax_val = prop_vals_clean.tax_val.astype('int')
     prop_vals_clean.yr_built = prop_vals_clean.yr_built.astype('int')
     prop_vals_clean.fips = prop_vals_clean.fips.astype('int')
-    return prop_vals_clean
+    train, test = train_test_split(prop_vals_clean, train_size=0.8, random_state=302)
+    train, validate = train_test_split(train, test_size=0.7, random_state=302)
+    return prop_vals_clean, train, validate, test
