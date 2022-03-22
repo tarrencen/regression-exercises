@@ -16,15 +16,19 @@ def get_splits(df):
     
 
 
-def isolate_lm_target(train, validate, test):
-    X_train = train.drop(columns= ['target'])
-    y_train = train[['target']]
+def isolate_lm_target(train, validate, test, target):
+    '''
+    Takes in train/validate/test splits and a target variable and returns corresponding X and y splits with
+    target variable isolated (y_train, y_validate, y_test), ready for modeling.
+    '''
+    X_train = train.drop(columns= [target])
+    y_train = train[[target]]
 
-    X_validate = validate.drop(columns= ['target'])
-    y_validate = validate[['target']]
+    X_validate = validate.drop(columns= [target])
+    y_validate = validate[[target]]
 
-    X_test = test.drop(columns= ['target'])
-    y_test= test[['target']]
+    X_test = test.drop(columns= [target])
+    y_test= test[[target]]
 
     X_train = X_train.select_dtypes(include='number')
     X_validate = X_validate.select_dtypes(include='number')
