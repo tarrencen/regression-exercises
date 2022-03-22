@@ -24,7 +24,7 @@ def months_to_years(telco_train):
 def plot_cat_and_cont_vars(df):
     cat_vars = df.select_dtypes(include=np.uint8)
     cont_vars= df.select_dtypes(include=(np.int64, np.float64))
-    cats_plotted = sns.catplot(cat_vars, row=cat_vars.shape[0], col= cat_vars.shape[1], kind='boxen', legend_out=True)
+    cats_plotted = sns.catplot(data=df, col=[cat_vars.columns], kind='boxen', legend_out=True)
     conts_plotted = plot_variable_pairs(cont_vars)
     return cats_plotted, conts_plotted
 
