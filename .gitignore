@@ -10,3 +10,4 @@ __init__.py
 *.pdf
 *.png
 *.jpeg
+modeling.ipynb
