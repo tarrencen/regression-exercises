@@ -13,11 +13,14 @@ def plot_variable_pairs(df):
     Takes in a DataFrame as input and returns plots of all pairwise relationships along 
     with the the regression line for each pair
     '''
-    df = df.select_dtypes(include=np.float64)
+    df = df.select_dtypes(include=(np.float64, np.int64))
     sns.pairplot(data=df, kind='reg', diag_kind='kde', plot_kws= {'line_kws': {'color': 'green'}}, dropna=True)
     
         
 def months_to_years(telco_train):
+    '''
+    Returns the telco_train df with a new column, 'tenure_years', that converts data from the 'tenure' column
+    '''
     telco_train['tenure_years'] = telco_train.tenure / 12
     return telco_train
 
