@@ -26,10 +26,18 @@ def get_prop_vals():
         print('Reading from CSV file...')
         return pd.read_csv(filename)
     query = ''' 
-    SELECT bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet, taxvaluedollarcnt, yearbuilt, taxamount, fips, propertylandusetypeid
-    FROM properties_2017
+    SELECT * FROM properties_2017 prop
+    JOIN predictions_2017 pred ON pred.id = prop.id
+    JOIN propertylandusetype land ON land.propertylandusetypeid = prop.propertylandusetypeid
+    WHERE (
+    prop.taxvaluedollarcnt IS NOT NULL
+    AND 
+    land.propertylandusetypeid = 261 
+    AND 
+    pred.transactiondate LIKE "2017%");
     '''
     print('Getting a fresh copy from SQL database...')
+    url = get_db_url('zillow')
     prop_vals = pd.read_sql(query, url)
     print('Copying to CSV...')
     prop_vals.to_csv(filename)
