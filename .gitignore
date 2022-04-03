@@ -11,3 +11,4 @@ __init__.py
 *.png
 *.jpeg
 modeling.ipynb
+quiz_review.ipynb
